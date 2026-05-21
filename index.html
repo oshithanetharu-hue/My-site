@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Netharu Oshitha | Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        /* --- COLOR SYSTEM --- */
+        :root {
+            --bg-main: #000000;
+            --bg-secondary: #050505;
+            --accent: #ABF600;
+            --accent-hover: #C1FF33;
+            --text-primary: #FFFFFF;
+            --text-secondary: #888888;
+            --border: rgba(255, 255, 255, 0.1);
+            --input-bg: #111111;
+            --card-filter: grayscale(100%) brightness(0.3);
+            --icon-filter: invert(0);
+        }
+
+        [data-theme="light"] {
+            --bg-main: #FFFFFF;
+            --bg-secondary: #F5F5F5;
+            --accent: #567904;
+            --accent-hover: #5F8A00;
+            --text-primary: #000000;
+            --text-secondary: #555555;
+            --border: rgba(0, 0, 0, 0.1);
+            --input-bg: #EEEEEE;
+            --card-filter: grayscale(100%) brightness(0.8);
+            --icon-filter: invert(1);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Archivo', sans-serif;
+            background-color: var(--bg-main);
+            color: var(--text-primary);
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* --- NAVIGATION --- */
+        header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 15px 5%;
+            background: var(--bg-main);
+            border-bottom: 1px solid var(--border);
+            position: fixed; top: 0; width: 90%; z-index: 1000;
+        }
+
+        .profile-area { display: flex; align-items: center; gap: 12px; }
+        .profile-pic {
+            width: 42px; height: 42px; border-radius: 50%;
+            background: url('230.jpg') center/cover no-repeat;
+            border: 2px solid var(--accent);
+        }
+        .profile-name { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+
+        .search-container { flex: 1; max-width: 300px; margin: 0 30px; position: relative; }
+        .search-container input {
+            width: 100%; padding: 10px 15px; border-radius: 20px;
+            background: var(--input-bg); border: 1px solid var(--border);
+            color: var(--text-primary); font-size: 0.8rem;
+        }
+
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { 
+            text-decoration: none; color: var(--text-secondary); font-size: 0.8rem; 
+            font-weight: 700; text-transform: uppercase; transition: 0.3s;
+            letter-spacing: 0.05em;
+        }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* AUTH BUTTONS GROUP */
+        .auth-group { display: flex; gap: 10px; align-items: center; }
+        .btn-outline { 
+            text-decoration: none; border: 1px solid var(--accent); color: var(--accent); 
+            padding: 10px 20px; border-radius: 8px; font-weight: 900; 
+            text-transform: uppercase; font-size: 0.75rem; transition: 0.3s;
+        }
+        .btn-outline:hover { background: var(--accent); color: var(--bg-main); }
+
+        /* --- CONTENT SECTIONS --- */
+        section { min-height: 100vh; padding: 100px 5% 60px 5%; display: flex; flex-direction: column; box-sizing: border-box; border-bottom: 1px solid var(--border); }
+        .home-header { padding: 40px 0; text-align: center; }
+        h1 { font-size: 3.5rem; font-weight: 900; color: var(--accent); margin: 0; letter-spacing: -0.04em; line-height: 0.9; text-transform: uppercase; }
+        h2 { font-weight: 400; font-size: 1rem; margin: 10px 0 0 0; color: var(--text-primary); opacity: 0.7; text-transform: uppercase; letter-spacing: 2px; }
+
+        .skills-grid { display: flex; width: 100%; height: 60vh; gap: 0; margin-top: 40px; overflow: hidden; }
+        .skill-card {
+            flex: 1; height: 100%; background-size: cover; background-position: center;
+            position: relative; cursor: pointer; transition: all 0.8s cubic-bezier(0.2, 1, 0.2, 1);
+            filter: var(--card-filter); border-right: 1px solid var(--border); overflow: hidden;
+        }
+        .skill-card::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 70%); z-index: 1; }
+        .skill-card span { position: absolute; bottom: 40px; left: 50%; color: var(--accent); font-weight: 900; font-size: 1rem; z-index: 2; text-transform: uppercase; transition: 0.6s; transform: translateX(-50%) rotate(-90deg); }
+        .skill-card:hover { flex: 15; filter: grayscale(0%) brightness(1); }
+        .skill-card:hover span { transform: translateX(-50%) rotate(0deg); font-size: 2rem; bottom: 60px; }
+
+        .content-container { text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; flex: 1; }
+        .form-box { max-width: 500px; width: 100%; text-align: left; margin-top: 30px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 20px; }
+        .input-group label { font-size: 0.7rem; color: var(--accent); font-weight: 800; text-transform: uppercase; }
+        
+        input, textarea { background: var(--input-bg); border: 1px solid var(--border); padding: 16px; border-radius: 8px; color: var(--text-primary); font-family: 'Archivo', sans-serif; font-size: 0.9rem; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+
+        .btn-main { background: var(--accent); color: var(--bg-main); border: none; padding: 12px 25px; border-radius: 8px; font-weight: 900; text-transform: uppercase; cursor: pointer; transition: 0.3s; font-size: 0.75rem; text-decoration: none;}
+        .btn-main:hover { background: var(--accent-hover); transform: translateY(-2px); }
+
+        table { width: 100%; max-width: 600px; border-collapse: collapse; margin-top: 30px; background: var(--bg-secondary); border-radius: 15px; overflow: hidden; }
+        th { text-align: left; color: var(--accent); padding: 20px; border-bottom: 2px solid var(--border); font-size: 0.75rem; text-transform: uppercase; }
+        td { padding: 20px; border-bottom: 1px solid var(--border); color: var(--text-secondary); }
+
+        /* --- FLOATING ELEMENTS --- */
+        .controls-container { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 15px; z-index: 2000; }
+        .floating-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: var(--bg-main); display: flex; align-items: center; justify-content: center; cursor: pointer; font-weight: 900; transition: 0.3s; border: none; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+        .floating-btn img { width: 22px; filter: var(--icon-filter); }
+
+        /* --- CHAT BOT --- */
+        #chat-window {
+            position: fixed; bottom: 100px; right: 30px; width: 300px; height: 400px;
+            background: var(--bg-secondary); border: 1px solid var(--border);
+            border-radius: 20px; display: none; flex-direction: column; 
+            overflow: hidden; z-index: 2000; box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        .chat-header { background: var(--accent); color: var(--bg-main); padding: 15px; font-weight: 900; font-size: 0.8rem; text-transform: uppercase; }
+        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.85rem; }
+        .msg { padding: 8px 12px; border-radius: 12px; max-width: 80%; }
+        .msg.bot { background: var(--input-bg); color: var(--text-primary); align-self: flex-start; }
+        .msg.user { background: var(--accent); color: var(--bg-main); align-self: flex-end; }
+        .chat-input { display: flex; border-top: 1px solid var(--border); padding: 10px; background: var(--bg-main); }
+        .chat-input input { flex: 1; padding: 8px; border: none; background: transparent; font-size: 0.8rem; }
+
+        @media (max-width: 900px) {
+            h1 { font-size: 2.5rem; }
+            .nav-links, .search-container { display: none; }
+            .skills-grid { flex-direction: column; height: auto; }
+            .skill-card { height: 150px; border-right: none; border-bottom: 1px solid var(--border); }
+            .skill-card span { transform: translateX(-50%) rotate(0deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="profile-area">
+            <div class="profile-pic"></div>
+            <span class="profile-name">Netharu Oshitha</span>
+        </div>
+
+        <div class="search-container">
+            <input type="text" id="sectionSearch" placeholder="Search sections...">
+        </div>
+
+        <nav class="nav-links">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#schedule">Schedule</a>
+            <a href="#career">Career</a>
+        </nav>
+
+        <div class="auth-group">
+            <a href="#login" class="btn-outline">Log In</a>
+            <a href="#signup" class="btn-main">Sign Up</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- SECTIONS REMAIN UNCHANGED -->
+        <section id="home">
+            <div class="home-header">
+                <h1>Welcome.</h1>
+                <h2>Digital Creator & Freelancer</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card" style="background-image: url('vid-edit.jpg');"><span>Video Editing</span></div>
+                <div class="skill-card" style="background-image: url('graphic.jpg');"><span>Graphic Design</span></div>
+                <div class="skill-card" style="background-image: url('logo.jpg');"><span>Logo Design</span></div>
+                <div class="skill-card" style="background-image: url('char-design.jpg');"><span>Character Design</span></div>
+                <div class="skill-card" style="background-image: url('mockup.jpg');"><span>Mockup Design</span></div>
+                <div class="skill-card" style="background-image: url('2d.jpg');"><span>2D Art</span></div>
+                <div class="skill-card" style="background-image: url('concept.jpg');"><span>Concept Art</span></div>
+            </div>
+        </section>
+        
+        <section id="about">
+            <div class="content-container">
+                <h1>About me.</h1>
+                <p style="font-size: 1.1rem; color: var(--text-secondary); max-width: 600px;">Freelance Digital Artist specializing in visual storytelling and high-end design.</p>
+                <br><br>
+                <h1>Contact me.</h1>
+                <p style="font-size: 1.1rem; color: var(--text-secondary);">Gmail: oshithanetharu@gmai.com</p>
+                <p style="font-size: 1.1rem; color: var(--text-secondary);">Phone: +94 76 664 2466</p>
+            </div>
+        </section>
+
+        <section id="schedule">
+            <div class="content-container">
+                <h1>Schedule.</h1>
+                <table>
+                    <tr><th>&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; Day</th><th>&emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp; &emsp;Availability</th></tr>
+                    <tr><td>Monday </td><td>8 AM - 7 PM</td></tr>
+                    <tr><td>Tuesday </td><td>9 AM - 6 PM</td></tr>
+                    <tr><td>Wednesday </td><td>9 AM - 6 PM</td></tr>
+                    <tr><td>Thursday </td><td>9 AM - 6 PM</td></tr>
+                    <tr><td>Friday </td><td>9 AM - 6 PM</td></tr>
+                    <tr><td>Saturday</td><td>10 AM - 2 PM</td></tr>
+                    <tr><td>Sunday </td><td>Unavailable</td></tr>
+                </table>
+            </div>
+        </section>
+
+        <section id="career">
+            <div class="content-container">
+                <h1>Career & Feedback.</h1>
+                <p style="color: var(--text-secondary);">Want to join Serendib Studios or leave a review?</p>
+                <form class="form-box">
+                    <div class="input-group">
+                        <label>Your Name</label>
+                        <input type="text" placeholder="Full Name">
+                    </div>
+                    <div class="input-group">
+                        <label>Feedback or Application</label>
+                        <textarea rows="5" placeholder="Write your thoughts here..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-main" style="padding: 18px 35px; font-size: 0.9rem;">Submit Feedback</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="login">
+            <div class="content-container">
+                <h1>Log In.</h1>
+                <form class="form-box">
+                    <div class="input-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+                    <div class="input-group"><label>Password</label><input type="password" placeholder="••••••••"></div>
+                    <button type="submit" class="btn-main" style="padding: 18px 35px; font-size: 0.9rem;">Enter Studio</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="signup">
+            <div class="content-container">
+                <h1>Sign Up.</h1>
+                <form class="form-box">
+                    <div class="input-group"><label>Name</label><input type="text" placeholder="Name"></div>
+                    <div class="input-group"><label>Email</label><input type="email" placeholder="email@example.com"></div>
+                    <div class="input-group"><label>New Password</label><input type="password" placeholder="••••••••"></div>
+                    <button type="submit" class="btn-main" style="padding: 18px 35px; font-size: 0.9rem;">Create Account</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- UI ELEMENTS -->
+    <div id="chat-window">
+        <div class="chat-header">ChatBot</div>
+        <div class="chat-messages" id="chatMsgs">
+            <div class="msg bot">Hi! How can I help you with your design project today?</div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="chatInput" placeholder="Type a message...">
+        </div>
+    </div>
+
+    <div class="controls-container">
+        <button class="floating-btn" id="theme-toggle"><img src="moon.svg" alt="T"></button>
+        <button class="floating-btn" id="chat-toggle">?</button>
+        <button class="floating-btn" id="mBtn">II</button>
+    </div>
+
+    <audio id="bgMusic" loop><source src="matadora.mp3" type="audio/mpeg"></audio>
+
+    <script>
+        // --- SEARCH & THEME (Same as before) ---
+        const searchInput = document.getElementById('sectionSearch');
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const term = searchInput.value.toLowerCase();
+                const sections = ['home', 'about', 'schedule', 'career', 'login', 'signup'];
+                const target = sections.find(s => s.includes(term));
+                if (target) { document.getElementById(target).scrollIntoView(); searchInput.value = ""; }
+            }
+        });
+
+        document.getElementById('theme-toggle').addEventListener('click', () => {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            document.documentElement.setAttribute('data-theme', currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        // --- CHAT LOGIC ---
+        const chatToggle = document.getElementById('chat-toggle');
+        const chatWindow = document.getElementById('chat-window');
+        const chatInput = document.getElementById('chatInput');
+        const chatMsgs = document.getElementById('chatMsgs');
+
+        chatToggle.addEventListener('click', () => {
+            chatWindow.style.display = chatWindow.style.display === 'flex' ? 'none' : 'flex';
+        });
+
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && chatInput.value.trim() !== "") {
+                const userMsg = document.createElement('div');
+                userMsg.className = 'msg user';
+                userMsg.textContent = chatInput.value;
+                chatMsgs.appendChild(userMsg);
+                
+                const val = chatInput.value.toLowerCase();
+                chatInput.value = "";
+
+                // Simple Bot Response
+                setTimeout(() => {
+                    const botMsg = document.createElement('div');
+                    botMsg.className = 'msg bot';
+                    if(val.includes('price')) botMsg.textContent = "Please contact me via Gmail for a custom quote!";
+                    else if(val.includes('hello')) botMsg.textContent = "Hello! Looking for a logo or video edit?";
+                    else botMsg.textContent = "Thanks! I'll get back to you soon.";
+                    chatMsgs.appendChild(botMsg);
+                    chatMsgs.scrollTop = chatMsgs.scrollHeight;
+                }, 600);
+            }
+        });
+
+        // --- AUDIO ---
+        const audio = document.getElementById('bgMusic');
+        const btn = document.getElementById('mBtn');
+        let playing = false;
+        document.addEventListener('click', () => {
+            if(!playing) { audio.volume = 0.2; audio.play().catch(e => {}); playing = true; }
+        }, {once: true});
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation(); 
+            if (audio.paused) { audio.play(); btn.innerHTML = "II"; } 
+            else { audio.pause(); btn.innerHTML = "▶"; }
+        });
+    </script>
+</body>
+</html>
